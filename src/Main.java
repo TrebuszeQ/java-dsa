@@ -3,6 +3,7 @@
 
 public class Main {
 
+
     public static void main(String[] args) {
         System.out.println("This app has been created through the progress of Uni course and books about Data Structures and Algorithms and has no purpose itself.\n");
         System.out.println("Opcje:");
