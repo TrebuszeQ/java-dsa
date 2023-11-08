@@ -1,31 +1,29 @@
-public class Exercises1 {
+public class Exercises1 implements Cli {
     public static void main(String[] args) {
-        String message = "Exercises from the first chapter, Polish edition.";
+        String message = "Cwiczenia z pierwszego rozdzialu wersji polskiej.";
         String[] options = {
-                "0. Clear terminal.",
-                "1. Exercise 1.1.3",
-                "2. Exercise 1.1.13",
-                "3. Exercise histogram",
-                "4. Go back.",
+                "Cwiczenie 1.1.3",
+                "Cwiczenie 1.1.13",
+                "Cwiczenie histogram",
+                "Powrot",
         };
-
         // temporary hard coded
         int x = 0;
         int y = 5;
 
-
         Method2[] methods = new Method2[] {
                 Exercises1::ex113,
                 () -> ex1113(x, y),
-
+                () -> histogram(Cli.collectIntegerArray(), x),
+                () -> System.out.println("Aktualnie brak implementacji.")
         };
 
-        Cli.SwitchLoop(message, options, methods);
+
+
+        Cli.optionsLoop(message, options, methods);
+        Cli.collectIntegerArray();
     }
 
-    static void execute2(Method2 function) {
-        function.executeMethod();
-    }
 
     public static void ex113() {
         System.out.println("Exercise 1.1.3, page 66.");
@@ -78,4 +76,5 @@ public class Exercises1 {
         }
         return wtf;
     }
+
 }

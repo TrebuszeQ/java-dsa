@@ -1,46 +1,29 @@
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
 
-public class Main {
+import java.util.HashMap;
+
+public class Main implements Options {
 
 
     public static void main(String[] args) {
-        System.out.println("This app has been created through the progress of Uni course and books about Data Structures and Algorithms and has no purpose itself.\n");
-        System.out.println("Opcje:");
-
+        String message = "Aplikacja została stworzona dla potrzeby nauki algorytmów i struktur danych.\n\nOpcje\n";
         String[] options = {
-                "0. Clear terminal.",
-                "1. Sortings",
-                "9. Exit."
+                "Cwiczenia z rozdzialu pierwszego",
         };
 
-        String input = "";
-        Integer result = 0;
-        do
-        {
-            for (int i = 0; i < options.length; i++)
-            {
-                System.out.println(options[i]);
-            }
-            System.out.println();
-            System.out.println("Provide option number.\n");
+        Method2[] methods = {
+                () -> Exercises1.main(null),
+                () -> System.exit(0),
+        };
 
-            input = System.console().readLine();
+        Cli.optionsLoop(message, options, methods);
+    }
 
-            switch(input) {
-                case "0":
-                    System.out.flush();
-                    break;
-                case "1":
-                    break;
-
-                case "9":
-                    return;
-                default:
-                    System.out.println("Wrong input.");
-                    break;
-            }
-
-        } while (input != "9");
+    @Override
+    public HashMap<String, Method2> mapSetter() {
+        HashMap<String, Method2> lol = new HashMap<>();
+        lol.put("Cwiczenia z rozdzialu pierwszego", () -> Exercises1.main(null));
+        return lol;
     }
 }
