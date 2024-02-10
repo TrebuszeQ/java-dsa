@@ -1,4 +1,6 @@
+import java.util.Map;
 import java.util.Scanner;
+import java.util.function.Function;
 
 public interface Cli {
 
@@ -90,4 +92,5 @@ public interface Cli {
         System.out.println("Exiting.");
         System.exit(0);
     }
+
 }
