@@ -16,7 +16,10 @@ public class FixedCapacityStack<T> {
     T pop() { return arr[n - 1]; }
 
     boolean isEmpty() { return n == 0; }
+
     boolean isFull() { return n == arr.length; }
+
+    int size() { return arr.length; }
 
     private void resize(int max) {
         T[]temp = (T[]) new Object[max];
