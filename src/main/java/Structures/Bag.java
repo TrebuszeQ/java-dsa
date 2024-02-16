@@ -6,10 +6,10 @@ public class Bag <T> {
     }
 
     boolean isEmpty() {
-
+        return true;
     }
 
     int size() {
-
+        return 0;
     }
 }
