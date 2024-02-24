@@ -1,5 +1,9 @@
 package Structures;
 
+import java.lang.reflect.Method;
+
+import static java.lang.reflect.AccessibleObject.setAccessible;
+
 public class ResizingStack<T> {
 
     private T[] arr = null;
@@ -15,23 +19,20 @@ public class ResizingStack<T> {
     public int size() { return n; }
 
     private T[] getResizedArr(int max) {
-        T[] temp = (T[]) new Object[max];
-        if (n >= 0) System.arraycopy(arr, 0, temp, 0, n);
-        return temp;
+        if (n >= 0) {
+            T[] temp = (T[]) new Object[max];
+            System.arraycopy(arr, 0, temp, 0, n);
+            return temp;
+        }
+//        return here
     }
 
     public void push(T item) {
-        if(n == 0) {
-            arr[0] = item;
+        if (n == arr.length) {
+            arr = getResizedArr(2 * arr.length);
+            arr[n] = (n == 0) ? (arr[0] = item) : (arr[n++] = item);
             n++;
         }
-
-        else if (n == arr.length) {
-            arr = getResizedArr(2 * arr.length);
-            arr[n++] = item;
-        }
-
-        else { arr[n++] = item; }
     }
 
     public T pop() {
