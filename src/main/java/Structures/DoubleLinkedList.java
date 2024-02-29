@@ -16,6 +16,7 @@ public class DoubleLinkedList<T> extends SingleLinkedList<T> {
     private static class Node<T> {
         T item;
         Node<T> next;
+        Node<T> previous;
     }
     public void pushHead(T item) {
         head.next = new Node<T>();
@@ -24,23 +25,15 @@ public class DoubleLinkedList<T> extends SingleLinkedList<T> {
         n++;
     }
 
-    private T getMiddleNodeItem(int position) {
-            T curr_item = tail.item;
-            for(int i = 0; i < position && position <= n; i++) { curr_item = iterator().next(); }
-            return curr_item;
-    }
+    @Override
+    public T getMiddleNodeItem(int position) {
+        if (n > 4)
+        return head.previous.item; }
 
     private Node<T> getMiddleNode(int position) {
         Node<T> current = tail;
         for(int i = 0; i < position && position <= n; i++) { current = tail.next; }
         return current;
-    }
-
-    public T popHead() {
-
-        T item = head.item;
-        head = null;
-        head
     }
 
     private class ListIterator implements Iterator<T> {

@@ -33,10 +33,31 @@ public class SingleLinkedList<T> implements Iterable<T> {
         return curr_item;
     }
 
+    private int validatePosition(int position) {
+        if(position >= n && position > 0) return n;
+        else if(position <= n && position < 0) return 0;
+        return position;
+    }
     private Node<T> getMiddleNode(int position) {
-        Node<T> current = tail;
-        for(int i = 0; i < position && position <= n; i++) { current = tail.next; }
-        return current;
+        position = validatePosition(position);
+        // here
+        if(position == n) { return head; }
+
+        else if(position == 0) { return tail; }
+
+        else if(position / 2 > position / n) {
+            Node<T> current = head;
+            while(n != position - 1) { current = current.next; }
+            return current;
+        }
+
+        else if(position / 2 < position / n) {
+            Node<T> current = tail;
+            for(int i = n; i > position && position < n; i--) { current = tail.next; }
+            return current;
+        }
+
+        else { return }
     }
     public void pushHead(T item) {
         head.next = new Node<>();
@@ -47,16 +68,22 @@ public class SingleLinkedList<T> implements Iterable<T> {
 
     public void pushMiddle(T item, int position) {
         if(position == n) {
-            // here
-            return pushHead(item);
+            pushHead(item);
         }
-        Node<T> mid = getMiddleNode(position - 1);
-        Node<T> chain = mid.next;
 
-        mid.next = new Node<>();
-        mid.next.item = item;
+        else if(position == 0) {
+            pushTail(item);
+        }
 
-        mid.next.next = chain;
+        else {
+            Node<T> mid = getMiddleNode(position - 1);
+            Node<T> chain = mid.next;
+
+            mid.next = new Node<>();
+            mid.next.item = item;
+            mid.next.next = chain;
+            n++;
+        }
     }
 
     public T popTail() {
