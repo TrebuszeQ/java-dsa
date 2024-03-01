@@ -25,10 +25,7 @@ public class DoubleLinkedList<T> extends SingleLinkedList<T> {
         n++;
     }
 
-    @Override
-    public T getMiddleNodeItem(int position) {
-        if (n > 4)
-        return head.previous.item; }
+    public T getMiddleNodeItem(int position) { return getMiddleNode(position).item; }
 
     private Node<T> getMiddleNode(int position) {
         Node<T> current = tail;

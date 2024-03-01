@@ -6,6 +6,7 @@ public class SingleLinkedList<T> implements Iterable<T> {
     private Node<T> head;
     private Node<T> tail;
     int n;
+
     public SingleLinkedList() {
         head = null;
         tail = null;
@@ -18,14 +19,8 @@ public class SingleLinkedList<T> implements Iterable<T> {
     }
 
     public boolean isEmpty() { return n == 0; }
+
     public int size() { return n; }
-    public void pushTail(T item) {
-        Node<T> oldTail = tail;
-        tail = new Node<T>();
-        tail.item = item;
-        tail.next = oldTail;
-        n++;
-    }
 
     private T getMiddleNodeItem(int position) {
         T curr_item = tail.item;
@@ -38,27 +33,36 @@ public class SingleLinkedList<T> implements Iterable<T> {
         else if(position <= n && position < 0) return 0;
         return position;
     }
+
     private Node<T> getMiddleNode(int position) {
         position = validatePosition(position);
-        // here
-        if(position == n) { return head; }
+        Node<T> current = null;
 
-        else if(position == 0) { return tail; }
+        if(position == n) { current = head; }
+
+        else if(position == 0) { current = tail; }
 
         else if(position / 2 > position / n) {
-            Node<T> current = head;
+            current = head;
             while(n != position - 1) { current = current.next; }
-            return current;
         }
 
         else if(position / 2 < position / n) {
-            Node<T> current = tail;
+            current = tail;
             for(int i = n; i > position && position < n; i--) { current = tail.next; }
-            return current;
         }
 
-        else { return }
+        return current;
     }
+
+    public void pushTail(T item) {
+        Node<T> oldTail = tail;
+        tail = new Node<T>();
+        tail.item = item;
+        tail.next = oldTail;
+        n++;
+    }
+
     public void pushHead(T item) {
         head.next = new Node<>();
         head.next.item = item;
@@ -100,6 +104,14 @@ public class SingleLinkedList<T> implements Iterable<T> {
         head = null;
         n--;
         return item;
+    }
+
+    public T popMiddle(int position) {
+        Node<T> previous = getMiddleNode(position - 1);
+        T mid_item = previous.next.item;
+        previous.next = previous.next.next;
+
+        return mid_item;
     }
 
     @Override
