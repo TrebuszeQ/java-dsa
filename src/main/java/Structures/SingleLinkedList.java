@@ -84,15 +84,11 @@ public class SingleLinkedList<T> implements Iterable<T> {
     }
 
     public void pushMiddle(T item, int position) {
-        if(position == n) {
+        if (position == n) {
             pushHead(item);
-        }
-
-        else if(position == 0) {
+        } else if (position == 0) {
             pushTail(item);
-        }
-
-        else {
+        } else {
             Node<T> mid = getMiddleNode(position - 1);
             Node<T> chain = mid.next;
 
@@ -104,23 +100,37 @@ public class SingleLinkedList<T> implements Iterable<T> {
     }
 
     public T popTail() {
-        T item = tail.item;
-        tail = null;
-        n--;
+        T item = n >= 1 ? tail.item : null;
+
+        tail = n == 1 ? null :
+                n == 2 ? head : tail.next;
+
+        head = n == 1 ? null :
+                n == 2 ? tail : head ;
+
+        n = n > 1 ? n - 1 : 0;
         return item;
     }
-    // here, n == 1 etc
+
     public T popHead() {
-        if(head != null) {
-            Node<T> mid = getMiddleNode(n - 1);
-            T item = head.item;
-            mid.next = null;
+        T item = n == 0 ? null :
+                    n == 1 ? tail.item : head.item;
+
+        if(n == 1) {
             head = null;
-            n--;
-            return item;
+            tail = null;
+            n = 0;
+        }
+        else if(n == 2) {
+            head = tail;
+        }
+        else {
+            head = getMiddleNode(n - 1);
+            head.next = null;
         }
 
-        else { return popTail(); }
+        n--;
+        return item;
     }
 
     public T popMiddle(int position) {
