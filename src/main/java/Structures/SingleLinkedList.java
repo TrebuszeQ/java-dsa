@@ -29,28 +29,27 @@ public class SingleLinkedList<T> implements Iterable<T> {
     }
 
     private int validatePosition(int position) {
-        if(position >= n && position > 0) return n;
-        else if(position <= n && position < 0) return 0;
-        return position;
+        return (position >= n && position > 0) ? n :
+                (position <= n && position < 0) ? 0 : position;
+    }
+
+    private Node<T> traverseList(int position) {
+        Node<T> current = null;
+            while(n != position - 1) { current = head.next; }
+        return current;
     }
 
     private Node<T> getMiddleNode(int position) {
         position = validatePosition(position);
         Node<T> current = null;
 
-        if(position == n) { current = head; }
+        current = n == 0 ? null :
+                (n == 1 || position == 1) ? tail :
+                        (position / 2 > position / n) ? head :
 
-        else if(position == 0) { current = tail; }
+        if(position / 2 > position / n) { for(int i = n; i < position; i++) { current = head.next; }}
 
-        else if(position / 2 > position / n) {
-            current = head;
-            while(n != position - 1) { current = current.next; }
-        }
-
-        else if(position / 2 < position / n) {
-            current = tail;
-            for(int i = n; i > position && position < n; i--) { current = tail.next; }
-        }
+        else if(position / 2 < position / n) { for(int i = n; i > position; i--) { current = tail.next; }}
 
         return current;
     }
@@ -86,9 +85,13 @@ public class SingleLinkedList<T> implements Iterable<T> {
     public void pushMiddle(T item, int position) {
         if (position == n) {
             pushHead(item);
-        } else if (position == 0) {
+        }
+
+        else if (position == 0) {
             pushTail(item);
-        } else {
+        }
+
+        else {
             Node<T> mid = getMiddleNode(position - 1);
             Node<T> chain = mid.next;
 
