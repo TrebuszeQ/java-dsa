@@ -1,6 +1,7 @@
 package Structures;
 
 import java.util.Iterator;
+import java.util.function.Consumer;
 
 public class SingleLinkedList<T> implements Iterable<T> {
     private Node<T> head;
@@ -35,25 +36,20 @@ public class SingleLinkedList<T> implements Iterable<T> {
 
     private Node<T> traverseList(int position) {
         Node<T> current = null;
-            while(n != position - 1) { current = head.next; }
+
+        if(position - n < n - n / 2) { for(int i = n; i > position; i--) { current = tail.next; } }
+
+        else { for(int i = n; i < position; i++) { current = head.next; } }
+
         return current;
     }
 
     private Node<T> getMiddleNode(int position) {
-        position = validatePosition(position);
-        Node<T> current = null;
-
-        current = n == 0 ? null :
-                (n == 1 || position == 1) ? tail :
-                        (position / 2 > position / n) ? head :
-
-        if(position / 2 > position / n) { for(int i = n; i < position; i++) { current = head.next; }}
-
-        else if(position / 2 < position / n) { for(int i = n; i > position; i--) { current = tail.next; }}
-
-        return current;
+        return n == 0 ? null :
+                (n == 1 || validatePosition(position) == 1) ? tail : traverseList(position);
     }
 
+    //
     public void pushTail(T item) {
         if(n == 1) {
             head = tail;
@@ -124,9 +120,11 @@ public class SingleLinkedList<T> implements Iterable<T> {
             tail = null;
             n = 0;
         }
+
         else if(n == 2) {
             head = tail;
         }
+
         else {
             head = getMiddleNode(n - 1);
             head.next = null;
