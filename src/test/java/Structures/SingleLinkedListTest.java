@@ -59,7 +59,7 @@ public class SingleLinkedListTest {
     }
 
     @Test
-    public void testPopMiddleWhenNotEmpty() {
+    public void testPushHeadPopMiddleWhenNotEmpty() {
         assertEquals(0, list.size());
         list.pushHead("paczek");
         assertEquals(1, list.size());
@@ -68,6 +68,11 @@ public class SingleLinkedListTest {
         list.pushHead("bulka");
         assertEquals(3, list.size());
         assertEquals("gofr", list.popMiddle(2));
+    }
+
+    @Test
+    public void testPushHeadPopMiddleWhenEmpty() {
+        assertNull(list.popMiddle(2));
     }
 
 }

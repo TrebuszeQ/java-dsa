@@ -49,11 +49,16 @@ public class SingleLinkedList<T> implements Iterable<T> {
                 (n == 1 || validatePosition(position) == 1) ? tail : traverseList(position);
     }
 
-    //
     public void pushTail(T item) {
-        if(n == 1) {
+        if (n == 0) {
+          tail = new Node<>();
+          tail.item = item;
+          head = tail;
+        }
+
+        else if(n == 1) {
             head = tail;
-            tail = new Node<T>();
+            tail = new Node<>();
             tail.item = item;
             tail.next = head;
         }
@@ -68,10 +73,10 @@ public class SingleLinkedList<T> implements Iterable<T> {
     }
 
     public void pushHead(T item) {
-        if(head != null) {
+        if(n >= 1) {
             head.next = new Node<>();
-            head.next.item = item;
             head = head.next;
+            head.item = item;
             n++;
         }
 
@@ -79,14 +84,8 @@ public class SingleLinkedList<T> implements Iterable<T> {
     }
 
     public void pushMiddle(T item, int position) {
-        if (position == n) {
-            pushHead(item);
-        }
-
-        else if (position == 0) {
-            pushTail(item);
-        }
-
+        if(n == 1 || n == 0) { pushTail(item); }
+        else if (position == n) { pushHead(item); }
         else {
             Node<T> mid = getMiddleNode(position - 1);
             Node<T> chain = mid.next;
@@ -112,34 +111,42 @@ public class SingleLinkedList<T> implements Iterable<T> {
     }
 
     public T popHead() {
-        T item = n == 0 ? null :
-                    n == 1 ? tail.item : head.item;
+        T item;
+        if (n == 0) { return null; }
 
-        if(n == 1) {
-            head = null;
-            tail = null;
-            n = 0;
-        }
+        else if(n == 1) { return popTail(); }
 
         else if(n == 2) {
             head = tail;
+            item = tail.item;
         }
 
         else {
+            item = head.item;
             head = getMiddleNode(n - 1);
             head.next = null;
         }
-
         n--;
+
         return item;
     }
 
+    // here
     public T popMiddle(int position) {
-        Node<T> previous = getMiddleNode(position - 1);
-        T mid_item = previous.next.item;
-        previous.next = previous.next.next;
+        T item  = null;
+        if(n > 2 && position != n) {
+            Node<T> previous = getMiddleNode(position - 1);
+            item = previous.next.item;
+            previous.next = previous.next.next;
 
-        return mid_item;
+        }
+        else if (n > 2 && position == 1) {
+
+        }
+
+        else if(n == 2 && position != n) { popTail(); }
+        else if(n == 2 && position == n ) { popHead(); }
+        return item;
     }
 
     @Override
