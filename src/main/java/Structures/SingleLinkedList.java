@@ -1,12 +1,21 @@
 package Structures;
 
 import java.util.Iterator;
-import java.util.function.Consumer;
 
 public class SingleLinkedList<T> implements Iterable<T> {
     private Node<T> head;
     private Node<T> tail;
     int n;
+
+    // here
+    private void setHead() {
+        n >
+        if (n > 0)
+    }
+
+    private void setTail() {
+
+    }
 
     public SingleLinkedList() {
         head = null;
@@ -32,6 +41,11 @@ public class SingleLinkedList<T> implements Iterable<T> {
     private int validatePosition(int position) {
         return (position >= n && position > 0) ? n :
                 (position <= n && position < 0) ? 0 : position;
+    }
+
+    private T popTailOrHead(boolean tail) {
+        return n == 0 ? null :
+                (n >= 2 && !tail) ? popHead() : popTail();
     }
 
     private Node<T> traverseList(int position) {
@@ -96,8 +110,12 @@ public class SingleLinkedList<T> implements Iterable<T> {
             n++;
         }
     }
-
+    // head only if (n >= 2 && !tail)
     public T popTail() {
+        T oldItem = tail.item;
+        tail = n > 1 ? tail.next : null;
+        return oldItem;
+
         T item = n >= 1 ? tail.item : null;
 
         tail = n == 1 ? null :
@@ -134,18 +152,14 @@ public class SingleLinkedList<T> implements Iterable<T> {
     // here
     public T popMiddle(int position) {
         T item  = null;
-        if(n > 2 && position != n) {
+        if(n > 2 && position != n && position > 1) {
             Node<T> previous = getMiddleNode(position - 1);
             item = previous.next.item;
             previous.next = previous.next.next;
-
-        }
-        else if (n > 2 && position == 1) {
-
         }
 
-        else if(n == 2 && position != n) { popTail(); }
-        else if(n == 2 && position == n ) { popHead(); }
+        else if(n > 2 && position <= 1 || n == 2 && position != n) { item = popTail(); }
+        else if(n < 2 && position == 1 || n <= position ) { item = popHead(); }
         return item;
     }
 

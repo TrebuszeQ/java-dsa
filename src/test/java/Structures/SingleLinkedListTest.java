@@ -71,8 +71,27 @@ public class SingleLinkedListTest {
     }
 
     @Test
-    public void testPushHeadPopMiddleWhenEmpty() {
-        assertNull(list.popMiddle(2));
+    public void testPushHeadPopMiddleWhenEmpty() { assertNull(list.popMiddle(2)); }
+
+    @Test
+    public void testPushMiddlePopHeadWhenEmpty() {
+        list.pushMiddle("paczek", 3);
+        assertEquals(1, list.size());
+        assertEquals("paczek", list.popHead());
+        assertEquals(0, list.size());
     }
 
+    @Test
+    public void testPushMiddlePopMiddleWhenNotEmpty() {
+        assertEquals(0, list.size());
+        list.pushHead("paczek");
+        assertEquals(1, list.size());
+        list.pushHead("gofr");
+        assertEquals(2, list.size());
+        list.pushHead("bulka");
+        assertEquals(3, list.size());
+        list.pushMiddle("rurka", 3);
+        assertEquals(4, list.size());
+        assertEquals("rurka", list.popMiddle(3));
+    }
 }
