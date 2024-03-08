@@ -7,16 +7,6 @@ public class SingleLinkedList<T> implements Iterable<T> {
     private Node<T> tail;
     int n;
 
-    // here
-    private void setHead() {
-        n >
-        if (n > 0)
-    }
-
-    private void setTail() {
-
-    }
-
     public SingleLinkedList() {
         head = null;
         tail = null;
@@ -32,11 +22,6 @@ public class SingleLinkedList<T> implements Iterable<T> {
 
     public int size() { return n; }
 
-    private T getMiddleNodeItem(int position) {
-        T curr_item = tail.item;
-        for(int i = 0; i < position && position <= n; i++) { curr_item = iterator().next(); }
-        return curr_item;
-    }
 
     private int validatePosition(int position) {
         return (position >= n && position > 0) ? n :
@@ -65,9 +50,9 @@ public class SingleLinkedList<T> implements Iterable<T> {
 
     public void pushTail(T item) {
         if (n == 0) {
-          tail = new Node<>();
-          tail.item = item;
-          head = tail;
+            tail = new Node<>();
+            tail.item = item;
+            head = tail;
         }
 
         else if(n == 1) {
@@ -99,7 +84,7 @@ public class SingleLinkedList<T> implements Iterable<T> {
 
     public void pushMiddle(T item, int position) {
         if(n == 1 || n == 0) { pushTail(item); }
-        else if (position == n) { pushHead(item); }
+        else if (position > n) { pushHead(item); }
         else {
             Node<T> mid = getMiddleNode(position - 1);
             Node<T> chain = mid.next;
@@ -113,19 +98,14 @@ public class SingleLinkedList<T> implements Iterable<T> {
     // head only if (n >= 2 && !tail)
     public T popTail() {
         T oldItem = tail.item;
-        tail = n > 1 ? tail.next : null;
+        if (n == 0) { return null; }
+        else if(n == 1) { tail = head = null; }
+
+        else if(n == 2) { tail = head; }
+
+        else { tail = tail.next; }
+        n--;
         return oldItem;
-
-        T item = n >= 1 ? tail.item : null;
-
-        tail = n == 1 ? null :
-                n == 2 ? head : tail.next;
-
-        head = n == 1 ? null :
-                n == 2 ? tail : head ;
-
-        n = n > 1 ? n - 1 : 0;
-        return item;
     }
 
     public T popHead() {
@@ -149,7 +129,6 @@ public class SingleLinkedList<T> implements Iterable<T> {
         return item;
     }
 
-    // here
     public T popMiddle(int position) {
         T item  = null;
         if(n > 2 && position != n && position > 1) {
