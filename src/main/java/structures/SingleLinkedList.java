@@ -1,4 +1,4 @@
-package Structures;
+package structures;
 
 import java.util.Iterator;
 
@@ -21,32 +21,6 @@ public class SingleLinkedList<T> implements Iterable<T> {
     public boolean isEmpty() { return n == 0; }
 
     public int size() { return n; }
-
-
-    private int validatePosition(int position) {
-        return (position >= n && position > 0) ? n :
-                (position <= n && position < 0) ? 0 : position;
-    }
-
-    private T popTailOrHead(boolean tail) {
-        return n == 0 ? null :
-                (n >= 2 && !tail) ? popHead() : popTail();
-    }
-
-    private Node<T> traverseList(int position) {
-        Node<T> current = null;
-
-        if(position - n < n - n / 2) { for(int i = n; i > position; i--) { current = tail.next; } }
-
-        else { for(int i = n; i < position; i++) { current = head.next; } }
-
-        return current;
-    }
-
-    private Node<T> getMiddleNode(int position) {
-        return n == 0 ? null :
-                (n == 1 || validatePosition(position) == 1) ? tail : traverseList(position);
-    }
 
     public void pushTail(T item) {
         if (n == 0) {
@@ -82,6 +56,27 @@ public class SingleLinkedList<T> implements Iterable<T> {
         else { pushTail(item); }
     }
 
+    protected int validatePosition(int position) {
+        return (position >= n && position > 0) ? n :
+                (position <= n && position < 0) ? 0 : position;
+    }
+
+    private Node<T> traverseList(int position) {
+        Node<T> current = null;
+
+        if(position - n < n - n / 2) { for(int i = n; i > position; i--) { current = tail.next; } }
+
+        else { for(int i = n; i < position; i++) { current = head.next; } }
+
+        return current;
+    }
+
+    private Node<T> getMiddleNode(int position) {
+        return n == 0 ? null :
+                (n <= 1) ? tail :
+                        (n >= n)
+    }
+
     public void pushMiddle(T item, int position) {
         if(n == 1 || n == 0) { pushTail(item); }
         else if (position > n) { pushHead(item); }
@@ -104,7 +99,9 @@ public class SingleLinkedList<T> implements Iterable<T> {
         else if(n == 2) { tail = head; }
 
         else { tail = tail.next; }
+
         n--;
+
         return oldItem;
     }
 
@@ -159,5 +156,4 @@ public class SingleLinkedList<T> implements Iterable<T> {
             return item;
         }
     }
-
 }

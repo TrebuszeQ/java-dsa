@@ -1,4 +1,4 @@
-package Structures;
+package structures;
 
 public class Bag <T> {
     void add(T item) {

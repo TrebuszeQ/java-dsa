@@ -1,4 +1,4 @@
-package Structures;
+package structures;
 
 import java.util.Iterator;
 
@@ -18,19 +18,23 @@ public class DoubleLinkedList<T> extends SingleLinkedList<T> {
         Node<T> next;
         Node<T> previous;
     }
-    public void pushHead(T item) {
-        head.next = new Node<T>();
-        head.next.item = item;
-        head = head.next;
-        n++;
+
+    public boolean isEmpty() { return n == 0; }
+    public int size() { return n; }
+
+    public void pushTail(T item) { super.pushTail(item); }
+
+    public void pushHead(T item) { super.pushHead(item); }
+
+    private Node<T> traverseList(int position) {
+        Node<T> current = null;
+
+        if(position - n < n - n / 2) { return n }
     }
 
-    public T getMiddleNodeItem(int position) { return getMiddleNode(position).item; }
-
     private Node<T> getMiddleNode(int position) {
-        Node<T> current = tail;
-        for(int i = 0; i < position && position <= n; i++) { current = tail.next; }
-        return current;
+        return n == 0 ? null :
+                (n == 1 || super.validatePosition(position) == 1) ?
     }
 
     private class ListIterator implements Iterator<T> {

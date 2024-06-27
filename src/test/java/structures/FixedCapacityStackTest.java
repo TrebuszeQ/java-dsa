@@ -1,4 +1,4 @@
-package Structures;
+package structures;
 
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;

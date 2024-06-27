@@ -1,4 +1,4 @@
-package Structures;
+package structures;
 
 // N = 0
 // Top = a[N-1]

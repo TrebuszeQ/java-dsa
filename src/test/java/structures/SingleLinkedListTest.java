@@ -1,8 +1,7 @@
-package Structures;
+package structures;
 
 import org.junit.jupiter.api.Test;
 
-import static Structures.SingleLinkedList.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SingleLinkedListTest {
